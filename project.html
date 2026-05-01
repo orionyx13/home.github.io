@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Project — Halo.dev</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+.project-grid {
+  display: flex; flex-direction: column; gap: 14px;
+  margin-bottom: 40px;
+}
+.project-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px; padding: 18px;
+  animation: fadeUp .4s ease both;
+  transition: border-color .2s, box-shadow .2s;
+  position: relative; overflow: hidden;
+}
+.project-card::before {
+  content: ''; position: absolute;
+  top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, var(--accent), var(--accent2));
+}
+.project-card:hover {
+  border-color: var(--border-accent);
+  box-shadow: 0 8px 32px rgba(59,130,246,.1);
+}
+.project-card:nth-child(1) { animation-delay: .1s; }
+.project-card:nth-child(2) { animation-delay: .18s; }
+.project-card:nth-child(3) { animation-delay: .26s; }
+.project-card:nth-child(4) { animation-delay: .34s; }
+
+.proj-top {
+  display: flex; align-items: center;
+  justify-content: space-between; margin-bottom: 8px;
+}
+.proj-title { font-size: 16px; font-weight: 700; }
+.proj-status {
+  font-size: 10px; font-weight: 700; letter-spacing: .8px;
+  text-transform: uppercase; padding: 3px 10px;
+  border-radius: 99px;
+}
+.status-done   { background: rgba(6,182,212,.12); color: var(--accent2); border: 1px solid rgba(6,182,212,.2); }
+.status-frozen { background: rgba(249,115,22,.1);  color: var(--orange);  border: 1px solid rgba(249,115,22,.2); }
+
+.proj-desc {
+  font-size: 13px; color: var(--muted); line-height: 1.65; margin-bottom: 12px;
+}
+.proj-stack { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 12px; }
+.proj-tag {
+  font-size: 11px; font-weight: 600; padding: 3px 9px; border-radius: 6px;
+  background: rgba(59,130,246,.1); color: var(--accent2);
+  border: 1px solid rgba(59,130,246,.15);
+}
+.proj-link {
+  font-size: 12px; font-weight: 600; color: var(--accent);
+  text-decoration: none; display: inline-flex; align-items: center;
+  gap: 5px; transition: gap .2s;
+}
+.proj-link:hover { gap: 9px; }
+
+.page-title {
+  font-size: 24px; font-weight: 700; letter-spacing: -.3px;
+  margin-bottom: 4px;
+}
+.page-sub {
+  font-size: 13px; color: var(--muted); margin-bottom: 28px; line-height: 1.6;
+}
+</style>
+</head>
+<body>
+
+<div class="aurora">
+  <div class="al al1"></div>
+  <div class="al al2"></div>
+  <div class="al al3"></div>
+</div>
+<div class="grid-bg"></div>
+
+<div id="navbar-placeholder"></div>
+<div id="sidebar-placeholder"></div>
+
+<main class="main">
+  <div class="content">
+
+    <div style="animation: fadeUp .5s ease both; margin-bottom: 28px; margin-top: 8px;">
+      <p class="eyebrow">Karya Saya</p>
+      <h1 class="page-title">Semua <span style="background:linear-gradient(90deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Project</span></h1>
+      <p class="page-sub">Kumpulan proyek yang pernah dibangun — dari komunitas hingga bisnis digital.</p>
+    </div>
+
+    <div class="project-grid">
+
+      <div class="project-card">
+        <div class="proj-top">
+          <div class="proj-title">Ratara SMP</div>
+          <span class="proj-status status-done">✓ Selesai</span>
+        </div>
+        <p class="proj-desc">Website komunitas Minecraft lengkap — laporan, toko, jadwal bansos, admin panel Firebase, dan server status real-time.</p>
+        <div class="proj-stack">
+          <span class="proj-tag">HTML/CSS</span>
+          <span class="proj-tag">JavaScript</span>
+          <span class="proj-tag">Firebase</span>
+          <span class="proj-tag">Pterodactyl</span>
+        </div>
+        <a href="#" class="proj-link">Kunjungi →</a>
+      </div>
+
+      <div class="project-card">
+        <div class="proj-top">
+          <div class="proj-title">MKT4X Virtual+</div>
+          <span class="proj-status status-done">✓ Selesai</span>
+        </div>
+        <p class="proj-desc">Website fan virtual idol group dengan 6 member — profil, fanclub, news, wiki, Google Sign-In, dan like system.</p>
+        <div class="proj-stack">
+          <span class="proj-tag">HTML/CSS</span>
+          <span class="proj-tag">JavaScript</span>
+          <span class="proj-tag">Firebase</span>
+          <span class="proj-tag">Google Auth</span>
+        </div>
+        <a href="#" class="proj-link">Kunjungi →</a>
+      </div>
+
+      <div class="project-card">
+        <div class="proj-top">
+          <div class="proj-title">TabunganKu</div>
+          <span class="proj-status status-frozen">❄ Beku</span>
+        </div>
+        <p class="proj-desc">Aplikasi tabungan gamifikasi dengan XP, level, badge, Chart.js statistik, dark/light mode, dan Google Auth.</p>
+        <div class="proj-stack">
+          <span class="proj-tag">HTML/CSS</span>
+          <span class="proj-tag">Firebase</span>
+          <span class="proj-tag">Chart.js</span>
+        </div>
+        <a href="#" class="proj-link">Lihat repo →</a>
+      </div>
+
+      <div class="project-card">
+        <div class="proj-top">
+          <div class="proj-title">Jajanan Pasar</div>
+          <span class="proj-status status-frozen">❄ Beku</span>
+        </div>
+        <p class="proj-desc">Website bisnis jajanan tradisional dengan order real-time Firebase, WhatsApp integration, PWA, dan Shopee-style UI.</p>
+        <div class="proj-stack">
+          <span class="proj-tag">HTML/CSS</span>
+          <span class="proj-tag">JavaScript</span>
+          <span class="proj-tag">Firebase</span>
+          <span class="proj-tag">PWA</span>
+        </div>
+        <a href="#" class="proj-link">Lihat repo →</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="footer-placeholder"></div>
+</main>
+
+<script src="script.js"></script>
+</body>
+</html>
