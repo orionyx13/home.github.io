@@ -24,7 +24,7 @@
 }
 
 html { scroll-behavior: smooth; }
-body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); color: var(--text); min-height: 100dvh; }
+body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); color: var(--text); min-height: 100dvh; display: flex; flex-direction: column; }
 
 /* AURORA */
 .aurora { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
@@ -78,7 +78,7 @@ body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); colo
 .sidebar-footer-text span { color:var(--accent2);font-weight:600; }
 
 /* MAIN */
-.main { position:relative;z-index:1;padding-top:56px;min-height:100dvh;display:flex;flex-direction:column;align-items:center; }
+.main { position:relative;z-index:1;padding-top:56px;min-height:100dvh;display:flex;flex-direction:column;align-items:center; flex: 1; }
 .content { width:100%;max-width:460px;padding:24px 20px 0;flex:1; }
 
 /* BANNER */
@@ -172,8 +172,8 @@ body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); colo
 .contact-arrow { font-size:14px;color:var(--muted);transition:transform .2s,color .2s; }
 .contact-item:hover .contact-arrow { transform:translateX(3px);color:var(--accent); }
 
-/* FOOTER (style untuk footer yang akan di-load) */
-.footer { position:relative;z-index:1;width:100%;border-top:1px solid var(--border);padding:24px 20px;display:flex;flex-direction:column;align-items:center;gap:10px; }
+/* FOOTER */
+.footer { position:relative;z-index:1;width:100%;border-top:1px solid var(--border);padding:24px 20px;display:flex;flex-direction:column;align-items:center;gap:10px; background: rgba(6,14,28,0.6); backdrop-filter: blur(8px); margin-top: 20px; }
 .footer-logo { font-size:13px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--accent); }
 .footer-links { display:flex;gap:20px;flex-wrap:wrap;justify-content:center; }
 .footer-links a { font-size:12px;color:var(--muted);text-decoration:none;transition:color .2s; }
@@ -196,10 +196,9 @@ body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); colo
 </div>
 <div class="grid-bg"></div>
 
-<!-- Placeholder untuk navbar, sidebar, dan footer -->
+<!-- Placeholder untuk navbar dan sidebar -->
 <div id="navbar-placeholder"></div>
 <div id="sidebar-placeholder"></div>
-<div id="footer-placeholder"></div>
 
 <!-- Fallback navbar (ditampilkan jika fetch navbar.html gagal) -->
 <nav class="navbar" id="navbar-fallback" style="display:none">
@@ -226,7 +225,7 @@ body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); colo
     <div class="profile-info">
       <div class="profile-name">Noctyra 〄<span>.</span></div>
       <div class="profile-handle">@noctyra.fm</div>
-      <div class="profile-bio">Web Developer Vibe Coding - Link Bio Hingga Portofolio.</div>
+      <div class="profile-bio">Web Developer Vibe Coding - Link Bio Hingga Portfolio.</div>
       <div class="profile-meta">
         <div class="meta-item"><span>📍</span> Indonesia</div>
         <div class="meta-item"><span>💼</span> Vibe Coding</div>
@@ -251,7 +250,7 @@ body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); colo
       </div>
       <div class="card">
         <div class="card-title"><span>🎯</span> Visi</div>
-        <div class="card-text">Dari link bio hingga portofolio pribadi berhak punya website yang proper. Saya di sini buat bikin itu bisa terjadi — fungsional, cepat, dan mudah dikelola.</div>
+        <div class="card-text">Dari link bio hingga portfolio pribadi berhak punya website yang proper. Saya di sini buat bikin itu bisa terjadi — fungsional, cepat, dan mudah dikelola.</div>
       </div>
     </div>
 
@@ -312,15 +311,18 @@ body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); colo
     </div>
 
   </div>
-  <!-- Konten footer akan dimasukkan oleh JavaScript ke dalam #footer-placeholder -->
+  <!-- Konten utama selesai, footer akan diletakkan di sini setelah main ditutup? Tidak, kita letakkan setelah main, di bawah -->
 </main>
 
+<!-- Placeholder Footer - DILETAKKAN SETELAH MAIN (bukan di atas) -->
+<div id="footer-placeholder"></div>
+
 <script>
-// Fungsi global untuk toggle & close sidebar (dipakai oleh tombol hamburger di navbar)
+// Fungsi global untuk toggle & close sidebar
 function toggleSidebar() {
   const s = document.getElementById('sidebar');
   const o = document.getElementById('overlay');
-  const b = document.querySelector('.hamburger'); // cari hamburger di navbar yang sudah di-load
+  const b = document.querySelector('.hamburger');
   if (!s || !o) return;
   const open = s.classList.toggle('open');
   o.classList.toggle('show', open);
@@ -347,7 +349,6 @@ fetch('navbar.html')
   .then(r => r.text())
   .then(html => {
     document.getElementById('navbar-placeholder').innerHTML = html;
-    // Pasang ulang event listener untuk hamburger jika diperlukan (karena DOM berubah)
     const hamburger = document.querySelector('.hamburger');
     if (hamburger && !hamburger.getAttribute('data-listener')) {
       hamburger.setAttribute('data-listener', 'true');
@@ -365,7 +366,6 @@ fetch('sidebar.html')
   .then(r => r.text())
   .then(html => {
     document.getElementById('sidebar-placeholder').innerHTML = html;
-      // Set active link berdasarkan halaman saat ini (aboutme.html)
     const currentPage = window.location.pathname.split('/').pop() || 'aboutme.html';
     document.querySelectorAll('.sidebar-link').forEach(link => {
       const href = link.getAttribute('href');
@@ -375,12 +375,11 @@ fetch('sidebar.html')
         link.classList.remove('active');
       }
     });
-    // Pastikan overlay dan sidebar dapat diakses
     const overlay = document.getElementById('overlay');
     if (overlay) overlay.onclick = closeSidebar;
   })
   .catch(() => {
-    // Fallback: buat sidebar manual jika file tidak ada
+    // Fallback sidebar jika file tidak ada
     const fallbackSidebar = `
       <div class="sidebar-overlay" id="overlay" onclick="closeSidebar()"></div>
       <aside class="sidebar" id="sidebar">
@@ -402,7 +401,7 @@ fetch('sidebar.html')
     if (overlay) overlay.onclick = closeSidebar;
   });
 
-// Load footer
+// Load footer (sekarang ditempatkan setelah main, jadi footer akan berada di bawah)
 fetch('footer.html')
   .then(r => r.text())
   .then(html => {
