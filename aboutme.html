@@ -85,10 +85,46 @@ body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); colo
 .banner { width:100%;height:110px;background:linear-gradient(135deg,#0d1f3c,#0a3352,#0d1f3c);border-radius:18px;position:relative;margin-bottom:50px;overflow:hidden;animation:fadeUp .4s ease both; }
 .banner-glow { position:absolute;inset:0;background:radial-gradient(ellipse 60% 100% at 50% 0%,rgba(59,130,246,.35),transparent); }
 .banner-grid { position:absolute;inset:0;background-image:linear-gradient(rgba(59,130,246,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(59,130,246,.07) 1px,transparent 1px);background-size:28px 28px; }
-.profile-pic-wrap { position:absolute;bottom:-40px;left:20px;width:80px;height:80px; }
-.profile-ring { position:absolute;inset:-3px;border-radius:50%;background:conic-gradient(from 0deg,var(--accent),var(--accent2),#818cf8,var(--accent));animation:spin 4s linear infinite; }
-.profile-bg { position:absolute;inset:0;margin:2.5px;border-radius:50%;background:var(--bg);z-index:1; }
-.profile-avatar { position:absolute;inset:0;margin:2.5px;z-index:2;border-radius:50%;background:linear-gradient(135deg,#0f2744,#0f3d5c);display:flex;align-items:center;justify-content:center;font-size:26px;font-weight:700;color:var(--accent2); }
+
+/* Avatar di tengah-tengah banner (horizontal & vertikal) */
+.profile-pic-wrap {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80px;
+  height: 80px;
+  z-index: 5;
+}
+.profile-ring {
+  position: absolute;
+  inset: -3px;
+  border-radius: 50%;
+  background: conic-gradient(from 0deg, var(--accent), var(--accent2), #818cf8, var(--accent));
+  animation: spin 4s linear infinite;
+}
+.profile-bg {
+  position: absolute;
+  inset: 0;
+  margin: 2.5px;
+  border-radius: 50%;
+  background: var(--bg);
+  z-index: 1;
+}
+.profile-avatar {
+  position: absolute;
+  inset: 0;
+  margin: 2.5px;
+  z-index: 2;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #0f2744, #0f3d5c);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--accent2);
+}
 
 /* PROFILE INFO */
 .profile-info { padding:0 20px;margin-bottom:24px;animation:fadeUp .4s .1s ease both; }
@@ -163,7 +199,7 @@ body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); colo
 <div id="navbar-placeholder"></div>
 <div id="sidebar-placeholder"></div>
 
-<!-- Fallback navbar kalau script.js gak ke-load -->
+<!-- fallback navbar -->
 <nav class="navbar" id="navbar-fallback" style="display:none">
   <a href="index.html" class="nav-logo"><div class="nav-logo-dot"></div>Halo.dev</a>
   <div class="nav-right">
@@ -330,7 +366,6 @@ function switchTab(el, id) {
   document.getElementById('panel-' + id).classList.add('active');
 }
 
-// Load navbar dari file kalau ada server, fallback ke inline
 fetch('navbar.html')
   .then(r => r.text())
   .then(html => {
@@ -338,7 +373,7 @@ fetch('navbar.html')
   })
   .catch(() => {
     document.getElementById('navbar-fallback').style.display = 'flex';
-  });
+  })
 </script>
 </body>
 </html>
